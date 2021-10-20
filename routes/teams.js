@@ -2,7 +2,7 @@ const express = require('express')
 const { getTeams, getTeam, createTeam, updateTeam, deleteTeam } = require('../controllers/teams')
 
 //Creating router
-const router = express.Router()
+const router = express.Router();
 
 router
     .route('/')
