@@ -2,17 +2,18 @@ const express = require('express');
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 
+
+//Route files pulled in
+const teams = require('./routes/teams');
+
 //Load env vars
 dotenv.config({ path: './config/config.env'});
 
 //Initialize app variable with express
 const app = express(); // Now I have the ability to create routes
 
-//Creating routes
-app.get('/', (req,res) => {
-    res.send('We are on home');
-});
-
+//Mount Router
+app.use('/api/v1/teams', teams);
 
 
 //Set a PORT value

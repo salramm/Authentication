@@ -13,6 +13,21 @@ const UserSchema = new mongoose.Schema({
     },
     role: {
         type: String,
-        enum: ['manager', 'comissioner']
+        enum: ['manager', 'comissioner'],
+        default: 'manager'
+    },
+    password: {
+        type: String,
+        required: ['true', 'Please add a password'],
+        minlength: 6,
+        select: false
+    },
+    resetPasswordToken: String,
+    resetPasswordExpire: String,
+    createdAt: {
+        type: Date,
+        default: Date.now
     }
 });
+
+module.exports = mongoose.model('User', UserSchema);
