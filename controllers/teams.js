@@ -1,3 +1,6 @@
+const Team = require('../models/Team');
+//Now we have this 'Team' object that we can call pur methods on
+
 
 // This is a header before every method that describes what it does
 
@@ -5,7 +8,7 @@
 // @route       GET /api/v1/teams
 // @access      Public
 exports.getTeams = (req, res, next) => {
-    res.status(200).json({success: true, msg: 'Show all teams'});
+    res.status(200).json({success: true, msg: 'Show all teams', hello: req.hello});
 }
 
 
@@ -20,8 +23,15 @@ exports.getTeam = (req, res, next) => {
 // @desc        Create a new team
 // @route       POST /api/v1/teams
 // @access      Private
-exports.createTeam = (req, res, next) => {
-    res.status(200).json({success: true, msg: 'Create a new team'})    
+exports.createTeam = async (req, res, next) => {
+    console.log(req.body); /* To see what data is coming from the client in the request but in order to this we need 
+    to add a middleware that is included with express - do this in server.js */
+    res.status(200).json({success: true, msg: 'Create a new team'});
+    const team = await Team.create(req.body); //We take the entered info in body and pass into the create method on our model
+
+    res.status(201).json({
+        success: true, data: team
+    })
 }
 
 
