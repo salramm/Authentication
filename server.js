@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const morgan = require('morgan');
 const connectDB = require('./config/db');
 const colors = require('colors');
+const errorHandler = require('./middleware/error');
 
 
 //Load env vars
@@ -28,6 +29,9 @@ if(process.env.NODE_ENV === 'development') {
 
 //Mount Router
 app.use('/api/v1/teams', teams);
+
+//This will allow us to use custom error handler middleware
+app.use(errorHandler);
 
 
 //Set a PORT value
