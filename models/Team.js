@@ -2,6 +2,7 @@
 //This will be a reference sheet for various fields
 
 const mongoose = require('mongoose');
+const slugify = require('slugify');
 
 const TeamSchema = new mongoose.Schema({
     name: {
@@ -100,6 +101,13 @@ const TeamSchema = new mongoose.Schema({
         default: Date.now
     }
     
+});
+
+//Create team slug from the name
+TeamSchema.pre('save', function(next) {
+    this.slug = slugify(this.name, {lower:true});
+    console.log('Slugify ran', this.name);
+    next();
 });
 
 module.exports = mongoose.model('Team', TeamSchema);
