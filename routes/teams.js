@@ -7,8 +7,13 @@ const courseRouter = require('./courses');
 //Creating router
 const router = express.Router();
 
+//Add Protect Middleware
+const { protect } = require('../middleware/auth');
+
 //Re-route into other resource router
 router.use('/:teamId/courses', courseRouter);
+
+router.route('/:id/photo').put(protect, teamPhotoUpload); //Protected this route by passing in the 'protect'
 
 router
     .route('/:id/photo')
@@ -17,13 +22,13 @@ router
 router
     .route('/')
     .get(getTeams)
-    .post(createTeam);
+    .post(protect, createTeam);
 
 router
     .route('/:id')
     .get(getTeam)
-    .put(updateTeam)
-    .delete(deleteTeam);
+    .put(protect, updateTeam)
+    .delete(protect, deleteTeam);
 
 
 module.exports = router;

@@ -6,6 +6,7 @@ const connectDB = require('./config/db');
 const colors = require('colors');
 const errorHandler = require('./middleware/error');
 const fileupload = require('express-fileupload');
+const cookieParser = require('cookie-parser');
 const path = require('path');
 
 
@@ -18,12 +19,16 @@ connectDB();
 //Route files pulled in
 const teams = require('./routes/teams');
 const courses = require('./routes/courses');
+const auth = require('./routes/auth');
 
 //Initialize app variable with express
 const app = express(); // Now I have the ability to create routes
 
 //Body parser  -  this will allow us to parse the body of the request
 app.use(express.json());
+
+//Cookie parser
+app.use(cookieParser());
 
 //Dev logging middleware - run only if we are in the dev environment
 if(process.env.NODE_ENV === 'development') {
@@ -39,6 +44,7 @@ app.use(express.static(path.join(__dirname, 'piblic')))   //__dirname will use t
 //Mount Router
 app.use('/api/v1/teams', teams);
 app.use('/api/v1/courses', courses);
+app.use('/api/v1/auth', auth);
 
 //This will allow us to use custom error handler middleware
 app.use(errorHandler);
