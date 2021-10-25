@@ -5,6 +5,8 @@ const morgan = require('morgan');
 const connectDB = require('./config/db');
 const colors = require('colors');
 const errorHandler = require('./middleware/error');
+const fileupload = require('express-fileupload');
+const path = require('path');
 
 
 //Load env vars
@@ -15,6 +17,7 @@ connectDB();
 
 //Route files pulled in
 const teams = require('./routes/teams');
+const courses = require('./routes/courses');
 
 //Initialize app variable with express
 const app = express(); // Now I have the ability to create routes
@@ -27,8 +30,15 @@ if(process.env.NODE_ENV === 'development') {
     app.use(morgan('dev'))
 }
 
+//File uploading middleware
+app.use(fileupload());
+
+//Set static folder
+app.use(express.static(path.join(__dirname, 'piblic')))   //__dirname will use the current directory we are in
+
 //Mount Router
 app.use('/api/v1/teams', teams);
+app.use('/api/v1/courses', courses);
 
 //This will allow us to use custom error handler middleware
 app.use(errorHandler);

@@ -2,27 +2,31 @@ const fs = require('fs');
 const mongoose = require('mongoose');
 const colors = require('colors');
 const dotenv = require('dotenv');
+const connectDB = require('./config/db');
 
 //Load the environment variables
-dotenv.config({path: './config'});
+dotenv.config({ path: './config/config.env'});
 
 //Load Models
 const Team = require('./models/Team');
-const connectDB = require('./config/db');
+const Course = require('./models/Course');
 
-//Connect to the database
-mongoose.connect(process.env.MONGO_URI);
+//Connect to DB
+connectDB();
 
 // Read JSON files
 const team = JSON.parse(fs.readFileSync(`${__dirname}/_data/teams.json`, 'utf-8'));
+
+const course = JSON.parse(fs.readFileSync(`${__dirname}/_data/courses.json`, 'utf-8'));
 
 // Import into DB
 const importData = async () => {
     try {
         await Team.create(team);
+        await Course.create(course);
 
         console.log('Data Imported...'.green.inverse);
-        process.exit
+        process.exit();
     } catch (error) {
         console.error(error);
     }
@@ -31,10 +35,11 @@ const importData = async () => {
 // Delete Data
 const deleteData = async () => {
     try {
-        await Team.deleteMany(team);
+        await Team.deleteMany();
+        await Course.deleteMany();
 
-        console.log('Data Deleted...'.red.inverse);
-        process.exit
+        console.log('Data Destroyed...'.red.inverse);
+        process.exit();
     } catch (error) {
         console.error(error);
     }

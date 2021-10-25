@@ -61,8 +61,8 @@ const TeamSchema = new mongoose.Schema({
         required: true,
         //Enum means that these are the only available values that it can have
         enum: [
-            'Web Dev',
-            'Mobile Dev',
+            'Web Development',
+            'Mobile Development',
             'UI/UX',
             'Data Science',
             'Business',
@@ -101,13 +101,24 @@ const TeamSchema = new mongoose.Schema({
         default: Date.now
     }
     
+}, {
+    toJSON: { virtuals: true},
+    toObject: { virtuals: true}
 });
 
 //Create team slug from the name
 TeamSchema.pre('save', function(next) {
-    this.slug = slugify(this.name, {lower:true});
+    this.slug = slugify(this.name, {lower:true}); //Will create and put in the slug into the DB
     console.log('Slugify ran', this.name);
     next();
 });
+
+//Reverse populate with virtuals
+TeamSchema.virtual('courses', {
+    ref: 'Course',
+    localField: '_id',
+    foreignField: 'team',
+    justOne: false
+})
 
 module.exports = mongoose.model('Team', TeamSchema);
