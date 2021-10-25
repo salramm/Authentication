@@ -8,12 +8,12 @@ const courseRouter = require('./courses');
 const router = express.Router();
 
 //Add Protect Middleware
-const { protect } = require('../middleware/auth');
+const { protect, authorize } = require('../middleware/auth');
 
 //Re-route into other resource router
 router.use('/:teamId/courses', courseRouter);
 
-router.route('/:id/photo').put(protect, teamPhotoUpload); //Protected this route by passing in the 'protect'
+router.route('/:id/photo').put(protect, authorize('comissioner'), teamPhotoUpload); //Protected this route by passing in the 'protect'
 
 router
     .route('/:id/photo')
@@ -22,13 +22,13 @@ router
 router
     .route('/')
     .get(getTeams)
-    .post(protect, createTeam);
+    .post(protect, authorize('comissioner'), createTeam);
 
 router
     .route('/:id')
     .get(getTeam)
-    .put(protect, updateTeam)
-    .delete(protect, deleteTeam);
+    .put(protect, authorize('comissioner'), updateTeam)
+    .delete(protect, authorize('cimissioner'), deleteTeam);
 
 
 module.exports = router;
