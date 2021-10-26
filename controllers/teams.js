@@ -52,6 +52,18 @@ exports.createTeam = asyncHandler( async (req, res, next) => {
     to add a middleware that is included with express - do this in server.js */
     // res.status(200).json({success: true, msg: 'Create a new team'});
     // Try catch will help handle promise rejections; the code will not hang and end with success: flase
+        
+        //Add user to req.body
+        req.body.user = req.user.id
+
+        //Check for published teams -- only create one team
+        const publishedTeam = await Team.findOne({user: req.user.id}); // will find any team created by this user
+
+        // If the user is not an admin, they can only add 1 team
+        if(publishedTeam && req.user.role !== 'admin') {
+            return next(new ErrorResponse(`The user with id ${req.user.id} has already published a team`,400 ));
+        }
+    
         const team = await Team.create(req.body); //We take the entered info in body and pass into the create method on our model
 
         res.status(201).json({
