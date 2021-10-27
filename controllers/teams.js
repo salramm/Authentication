@@ -76,14 +76,22 @@ exports.createTeam = asyncHandler( async (req, res, next) => {
 // @route       PUT /api/v1/teams/:id
 // @access      Private
 exports.updateTeam = asyncHandler( async (req, res, next) => {
-        const team = await Team.findByIdAndUpdate(req.params.id, req.body, { // We are find the entry by id and the pass what we want to inser with req.body
-            new: true,
-            runValidators: true 
-        });
+        let team = await Team.findById(req.params.id); // We are find the entry by id and the pass what we want to inser with req.body
+
         if(!team) {
             return next(
                 new ErrorResponse(`Team not found with id of  ${req.params.id}`, 404));
         }
+
+        // Make sure the user is team owner
+        if (team.user.toString() !== req.user.id && !req.user.role !== 'admin') {
+            return next(new ErrorResponse(`User ${req.user.id} is not authorized to update this team`, 401))
+        }
+
+        team = await Team.findByIdAndUpdate(req.params.id, req.body, {
+            new: true,
+            runValidators: true
+        })
 
         res.status(200).json({success: true, data: team})
 });
@@ -93,12 +101,19 @@ exports.updateTeam = asyncHandler( async (req, res, next) => {
 // @route       DELETE /api/v1/teams/:id
 // @access      Public
 exports.deleteTeam = asyncHandler( async (req, res, next) => {
-        const team = await Team.findByIdAndDelete(req.params.id)
+        let team = await Team.findById(req.params.id)
 
         if (!team) {
             return next(
                 new ErrorResponse(`Team not found with id of  ${req.params.id}`, 404));
         }
+
+        //Make sure the user is the team owner
+        if (team.user.toString() !== req.user.id && !req.user.role !== 'admin' ) {
+            return next(new ErrorResponse(`User ${req.params.id} is not authorized to delete this team`, 401))
+        };
+
+        team.remove();
 
         res.status(200).json({success: true, data: {}});
 });
@@ -114,6 +129,11 @@ exports.teamPhotoUpload = asyncHandler( async (req, res, next) => {
         return next(
             new ErrorResponse(`Team not found with id of  ${req.params.id}`, 404));
     }
+
+    //Make sure the user is the team owner
+    if (team.user.toString() !== req.body.id && req.body.role !== 'admin') {
+        return next(new ErrorResponse(`User ${req.params.id} is not authorized to update this team`, 401))
+    };
 
     if (!req.files) {
         return next(

@@ -28,7 +28,7 @@ router
     .route('/:id')
     .get(getTeam)
     .put(protect, authorize('comissioner'), updateTeam)
-    .delete(protect, authorize('cimissioner'), deleteTeam);
+    .delete(protect, authorize('manager'), deleteTeam);
 
 
 module.exports = router;
