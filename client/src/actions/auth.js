@@ -20,14 +20,11 @@ export const register = ({name, email, password}) => async dispatch => {
             payload: res.data
         })
     } catch (err) {
-        console.log('Hello');
-        const errors = err.response.data.errors;
-        console.log('GoodBye')
+        const errors = err.response.data.error.split(",");
 
         if (errors) {
-            errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
+            errors.forEach(error => dispatch(setAlert(error, 'danger')));
         }
-        console.log('Hello Again');
 
         dispatch({
             type: REGISTER_FAIL
