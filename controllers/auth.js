@@ -60,7 +60,7 @@ exports.login = asyncHandler(async(req, res, next) => {
 exports.getMe = asyncHandler(async(req, res, next) => {
     const user = await User.findById(req.user.id).select('-password');
 
-    res.status(200).json({success: true, data: user})
+    res.status(200).json(user)    // old stuff success: true, data: 
 });
 
 // @desc      Forgot Password
