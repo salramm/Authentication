@@ -58,9 +58,9 @@ exports.login = asyncHandler(async(req, res, next) => {
 // @access    Private
 
 exports.getMe = asyncHandler(async(req, res, next) => {
-    const user = await User.findById(req.user.id);
+    const user = await User.findById(req.user.id).select('-password');
 
-    res.status(200).json({ success: true, data: user});
+    res.status(200).json({success: true, data: user})
 });
 
 // @desc      Forgot Password
@@ -152,10 +152,10 @@ const sendTokenResponse = (user, statusCode, res) => {
     // This way when we are in prod we will have a secure cookie
     if (process.env.NODE_ENV === 'production') {
         options.secure = true;
-    }
+    };
 
     res
         .status(statusCode)
         .cookie('token', token, options)
         .json({success: true, token});
-};
+}
