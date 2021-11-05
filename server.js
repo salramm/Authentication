@@ -17,6 +17,7 @@ dotenv.config({ path: './config/config.env'});
 connectDB();
 
 //Route files pulled in
+const leagues = require('./routes/leagues');
 const teams = require('./routes/teams');
 const courses = require('./routes/courses');
 const auth = require('./routes/auth');
@@ -42,6 +43,7 @@ app.use(fileupload());
 app.use(express.static(path.join(__dirname, 'piblic')))   //__dirname will use the current directory we are in
 
 //Mount Router
+app.use('/api/v1/leagues', leagues);
 app.use('/api/v1/teams', teams);
 app.use('/api/v1/courses', courses);
 app.use('/api/v1/auth', auth);

@@ -52,7 +52,9 @@ exports.createTeam = asyncHandler( async (req, res, next) => {
     to add a middleware that is included with express - do this in server.js */
     // res.status(200).json({success: true, msg: 'Create a new team'});
     // Try catch will help handle promise rejections; the code will not hang and end with success: flase
-        
+        console.log('hello')
+    
+        console.log(req.user.id)
         //Add user to req.body
         req.body.user = req.user.id
 
