@@ -9,10 +9,6 @@ const path = require('path');
 
 exports.createLeague = asyncHandler( async (req, res, next) => {
 
-    console.log('hello')
-    
-    console.log(req.user.id) 
-    
     req.body.user = req.user.id
 
     const league = await League.create(req.body); //We take the entered info in body and pass into the create method on our model

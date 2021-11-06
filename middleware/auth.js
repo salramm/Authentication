@@ -7,17 +7,17 @@ const { token } = require('morgan');
 //Protect troutes 
 exports.protect = asyncHandler( async (req, res, next) => {
 
-    let token
+    // let token
 
-   // const token = req.header('x-auth-token'); This was used for the API
+   const token = req.header('x-auth-token'); // This was used for the UI
     
    // This was used when it was JUST API without the UI
 
-    if (req.headers.authorization && 
-        req.headers.authorization.startsWith('Bearer')) 
-        {
-        token = req.headers.authorization.split(' ')[1];
-    }
+    // if (req.headers.authorization && 
+    //     req.headers.authorization.startsWith('Bearer')) 
+    //     {
+    //     token = req.headers.authorization.split(' ')[1];
+    // }
 
     // else if (req.cookies.token) {
     //     token = req.cookies.token
@@ -25,6 +25,7 @@ exports.protect = asyncHandler( async (req, res, next) => {
 
     // }
 
+    console.log('hello');
     //Make sure that token exists 
     if (!token) {
         return next(new ErrorResponse('Not authorized to access this route 1', 401));
