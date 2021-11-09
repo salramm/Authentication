@@ -1,10 +1,11 @@
 const League = require('../models/League');
+const User = require('../models/User')
 const ErrorResponse = require('../utils/errorResponse');
 const asyncHandler = require('../middleware/async');
 const path = require('path');
 
 // @desc        Create a new league
-// @route       POST /api/v1/teams
+// @route       POST /api/v1/leagues
 // @access      Private
 
 exports.createLeague = asyncHandler( async (req, res, next) => {
@@ -17,3 +18,22 @@ exports.createLeague = asyncHandler( async (req, res, next) => {
         success: true, data: league
     });
 });
+
+
+// @desc        Get league of an existing user
+// @route       GET /api/v1/leagues/:id
+// @access      Private
+
+exports.getLeague = asyncHandler( async( req, res, next) => {
+
+    const league = await League.find({user: req.user.id})
+
+    console.log(league[0])
+
+    if (!league) {
+        return next(
+            new ErrorResponse(`League not found with id of  ${req.params.id}`, 404)); //Thsi will handle the rejection if the ID does not exist but is correctly formatted
+    }
+
+    res.status(201).json(league[0])
+})

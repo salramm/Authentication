@@ -1,15 +1,17 @@
 import React, { Fragment, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { getCurrentProfile } from '../../actions/profile'
+import { getCurrentProfile } from '../../actions/profile';
+import { getCurrentLeague } from '../../actions/league';
 import Spinner from '../layout/Spinner';
 import { Link } from 'react-router-dom';
 import { DashboardActions } from './DashboardActions';
 
 
-const Dashboard = ({ getCurrentProfile, auth: { user }, profile: {profile, loading}}) => {
+const Dashboard = ({ getCurrentProfile, getCurrentLeague, auth: { user }, profile: {profile, loading}, league: { league } }) => {
     useEffect(() => {
         getCurrentProfile();
+        getCurrentLeague();
     }, []);
 
     return loading && profile === null ? <Spinner /> : <Fragment>
@@ -17,13 +19,13 @@ const Dashboard = ({ getCurrentProfile, auth: { user }, profile: {profile, loadi
             Dashboard
         </h1>
         <p className="lead">
-            <i className="fas fa-user"></i> Welcome {user && user.name}
+            <i className="fas fa-user"></i> Welcome {user && user.name} your league {league.league} is awesome  
         </p>
-        {profile !== null ? (<Fragment>
+        {profile == null ? (<Fragment>
             <DashboardActions/> </Fragment>) : (<Fragment> 
             <p> You have not yet setup a profile, please add some info</p>
             <Link to='/create-profile' className="btn btn-primary my-1">
-                Create Profile
+                Create League
             </Link>
         </Fragment>) }
     </Fragment>
@@ -33,11 +35,14 @@ Dashboard.propTypes = {
     getCurrentProfile: PropTypes.func.isRequired,
     auth: PropTypes.object.isRequired,
     profile: PropTypes.object.isRequired,
+    getCurrentLeague: PropTypes.func.isRequired,
+    league: PropTypes.object.isRequired,
 }
 
 const mapStateToProps = state => ({
     auth: state.auth,
-    profile: state.profile
+    profile: state.profile,
+    league: state.league
 })
 
-export default connect(mapStateToProps, { getCurrentProfile}) (Dashboard);
+export default connect(mapStateToProps, { getCurrentProfile, getCurrentLeague }) (Dashboard);

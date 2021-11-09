@@ -35,6 +35,7 @@ exports.getTeams = asyncHandler(async (req, res, next) => {  //Wrapped this in a
 // @route       GET /api/v1/teams/:id
 // @access      Public
 exports.getTeam = asyncHandler( async (req, res, next) => {
+
         const team = await Team.findById(req.params.id); //req.params.id will get the id form the request
         
         if (!team) {

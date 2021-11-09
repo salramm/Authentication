@@ -29,7 +29,7 @@ export const createProfile = (formData, history, edit = false) => async dispatch
             }
         }
 
-        const res = await axios.post('/api/profile', formData, config);
+        const res = await axios.post('/api/v1/leagues', formData, config);
 
         dispatch({
             type: GET_PROFILE,

@@ -13,6 +13,7 @@ export const loadUser = () => async dispatch => {
     try {
         const res = await axios.get('/api/v1/auth/me');
 
+
         dispatch({
             type: USER_LOADED,
             payload: res.data // which will be the user to the action type of USER_LOADED

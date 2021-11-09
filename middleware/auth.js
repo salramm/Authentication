@@ -7,7 +7,7 @@ const { token } = require('morgan');
 //Protect troutes 
 exports.protect = asyncHandler( async (req, res, next) => {
 
-    // let token
+    //  let token
 
    const token = req.header('x-auth-token'); // This was used for the UI
     
@@ -25,7 +25,6 @@ exports.protect = asyncHandler( async (req, res, next) => {
 
     // }
 
-    console.log('hello');
     //Make sure that token exists 
     if (!token) {
         return next(new ErrorResponse('Not authorized to access this route 1', 401));
@@ -39,6 +38,8 @@ exports.protect = asyncHandler( async (req, res, next) => {
         // console.log(decode);
 
         req.user = await User.findById(decode.id);
+
+        console.log(req.user.id)
 
         next();
 

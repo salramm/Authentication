@@ -2,7 +2,7 @@ const mongoose = require ('mongoose');
 const slugify = require ('slugify');
 
 const LeagueSchema = new mongoose.Schema({
-    name: {
+    league: {
         type: String,
         required: [true, 'Please add a name'],
         unique: [true, 'League name must be unique'],
@@ -19,7 +19,7 @@ const LeagueSchema = new mongoose.Schema({
         required: true,
         maxlength: 50
     },
-    comissioner: {
+    commissioner: {
         type: String,
         required: true
     },
