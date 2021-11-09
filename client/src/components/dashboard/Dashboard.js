@@ -19,7 +19,7 @@ const Dashboard = ({ getCurrentProfile, getCurrentLeague, auth: { user }, profil
             Dashboard
         </h1>
         <p className="lead">
-            <i className="fas fa-user"></i> Welcome {user && user.name} your league {league.league} is awesome  
+            <i className="fas fa-user"></i> Welcome {user && user.name} your league  
         </p>
         {profile == null ? (<Fragment>
             <DashboardActions/> </Fragment>) : (<Fragment> 
