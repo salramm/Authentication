@@ -4,6 +4,31 @@ import { GET_TEAM, TEAM_ERROR } from './types'
 import setAuthToken from '../utils/setAuthToken'
 
 
+// Get cuurent user team
+
+export const getCurrentTeam = () => async dispatch => {
+
+    if (localStorage.token) {
+        setAuthToken(localStorage.token)
+    }
+
+    try {
+        
+        const res = await axios.get('/api/v1/teams')
+
+        dispatch ({
+            type: GET_TEAM,
+            payload: res.data
+        })
+
+    } catch (err) {
+        dispatch ({
+            type: TEAM_ERROR,
+            payload: err
+        })
+    }
+}
+
 // Create or update a league
 export const createTeam = (formData, history, edit=false) => async dispatch => {
     try {

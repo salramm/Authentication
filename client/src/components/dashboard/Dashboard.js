@@ -3,15 +3,17 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { getCurrentProfile } from '../../actions/profile';
 import { getCurrentLeague } from '../../actions/league';
+import { getCurrentTeam } from '../../actions/team';
 import Spinner from '../layout/Spinner';
 import { Link } from 'react-router-dom';
 import { DashboardActions } from './DashboardActions';
 
 
-const Dashboard = ({ getCurrentProfile, getCurrentLeague, auth: { user }, profile: {profile, loading}, league: { league } }) => {
+const Dashboard = ({ getCurrentProfile, getCurrentLeague, getCurrentTeam, auth: { user }, profile: {profile, loading}, league: { league } }) => {
     useEffect(() => {
         getCurrentProfile();
         getCurrentLeague();
+        getCurrentTeam();
     }, []);
 
     return loading && profile === null ? <Spinner /> : <Fragment>
@@ -40,12 +42,15 @@ Dashboard.propTypes = {
     profile: PropTypes.object.isRequired,
     getCurrentLeague: PropTypes.func.isRequired,
     league: PropTypes.object.isRequired,
+    getCurrentTeam: PropTypes.func.isRequired,
+    team: PropTypes.object.isRequired,
 }
 
 const mapStateToProps = state => ({
     auth: state.auth,
     profile: state.profile,
-    league: state.league
+    league: state.league,
+    team: state.team
 })
 
-export default connect(mapStateToProps, { getCurrentProfile, getCurrentLeague }) (Dashboard);
+export default connect(mapStateToProps, { getCurrentProfile, getCurrentLeague, getCurrentTeam }) (Dashboard);

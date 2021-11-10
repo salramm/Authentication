@@ -7,7 +7,7 @@ import { createTeam } from '../../actions/team'
 const CreateTeam = ({createTeam, history}) => {
 
     const [formData, setFormData] = useState ({
-        name: '',
+        team_name: '',
         description: '',
         hometown: '',
         manager: '',
@@ -15,7 +15,7 @@ const CreateTeam = ({createTeam, history}) => {
         arena: ''
     });
 
-    const {name, description, manager, hometown, arena, logo} = formData
+    const {team_name, description, manager, hometown, arena, logo} = formData
 
     const onChange = e => setFormData({ ...formData, [e.target.name] : e.target.value })
 
@@ -33,7 +33,7 @@ return (
         <form className="form" onSubmit={e => onSubmit(e)} >
             <div className="form-group">
                 <input type="text" placeholder="Your Team Name" 
-                name="name" value={name} onChange={e => {onChange(e)}} />
+                name="team_name" value={team_name} onChange={e => {onChange(e)}} />
             </div>
 
             <div className="form-group">

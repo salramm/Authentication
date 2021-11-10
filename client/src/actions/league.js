@@ -14,8 +14,6 @@ export const getCurrentLeague = () => async (dispatch) => {
     try {
         const res = await axios.get(`/api/v1/leagues/`)
 
-        console.log(res.data)
-
         dispatch ({
             type: GET_LEAGUE,
             payload: res.data

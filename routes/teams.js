@@ -21,7 +21,7 @@ router
 
 router
     .route('/')
-    .get(getTeams)
+    .get(protect, getTeams)
     .post(protect, authorize('comissioner'), createTeam);
 
 router

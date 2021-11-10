@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const slugify = require('slugify');
 
 const TeamSchema = new mongoose.Schema({
-    name: {
+    team_name: {
         type: String,
         required: [true, 'Please add a name'],
         unique: true,
@@ -113,8 +113,8 @@ const TeamSchema = new mongoose.Schema({
 
 //Create team slug from the name
 TeamSchema.pre('save', function(next) {
-    this.slug = slugify(this.name, {lower:true}); //Will create and put in the slug into the DB
-    console.log('Slugify ran', this.name);
+    this.slug = slugify(this.team_name, {lower:true}); //Will create and put in the slug into the DB
+    console.log('Slugify ran', this.team_name);
     next();
 });
 

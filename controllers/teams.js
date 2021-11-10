@@ -11,9 +11,11 @@ const path = require('path');
 // @route       GET /api/v1/teams
 // @access      Public
 exports.getTeams = asyncHandler(async (req, res, next) => {  //Wrapped this in async middleware to avoid writing like in comment section below
-        const teams = await Team.find().populate('courses');
+        const teams = await Team.find({user: req.user.id})  // .populate('courses');
+
+        res.status(200).json(teams[0]);
     
-        res.status(200).json({success: true, count: teams.length, data: teams});
+        // res.status(200).json({success: true, count: teams.length, data: teams});
         
 });
 
@@ -56,18 +58,18 @@ exports.createTeam = asyncHandler( async (req, res, next) => {
         //Add user to req.body
         req.body.user = req.user.id
 
-        console.log(req.body.user)
-
         //Check for published teams -- only create one team
         const publishedTeam = await Team.findOne({user: req.user.id}); // will find any team created by this user
 
-        console.log(publishedTeam)
         // If the user is not an admin, they can only add 1 team
         if(publishedTeam && req.user.role !== 'admin') {
             return next(new ErrorResponse(`The user with id ${req.user.id} has already published a team`,400 ));
         }
-    
+
+
         const team = await Team.create(req.body); //We take the entered info in body and pass into the create method on our model
+        
+        console.log('hello')
 
         res.status(201).json({
             success: true, data: team
