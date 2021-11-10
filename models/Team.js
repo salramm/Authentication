@@ -34,7 +34,7 @@ const TeamSchema = new mongoose.Schema({
     },
     address: {
         type: String,
-        required: [true, 'Please add an address']
+        required: [false, 'Please add an address']
     },
     location: {
         //GeoJSON Point

@@ -27,6 +27,9 @@ const Dashboard = ({ getCurrentProfile, getCurrentLeague, auth: { user }, profil
             <Link to='/create-profile' className="btn btn-primary my-1">
                 Create League
             </Link>
+            <Link to='/create-team' className="btn btn-primary my-1">
+                Create Team
+            </Link>
         </Fragment>) }
     </Fragment>
 }

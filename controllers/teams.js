@@ -56,9 +56,12 @@ exports.createTeam = asyncHandler( async (req, res, next) => {
         //Add user to req.body
         req.body.user = req.user.id
 
+        console.log(req.body.user)
+
         //Check for published teams -- only create one team
         const publishedTeam = await Team.findOne({user: req.user.id}); // will find any team created by this user
 
+        console.log(publishedTeam)
         // If the user is not an admin, they can only add 1 team
         if(publishedTeam && req.user.role !== 'admin') {
             return next(new ErrorResponse(`The user with id ${req.user.id} has already published a team`,400 ));

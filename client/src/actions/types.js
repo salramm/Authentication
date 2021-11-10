@@ -20,3 +20,5 @@ export const GET_LEAGUE = 'GET_LEAGUE';
 export const LEAGUE_ERROR = 'LEAGUE_ERROR';
 export const CLEAR_LEAGUE = 'CLEAR_LEAGUE';
 
+export const GET_TEAM = 'GET_TEAM';
+export const TEAM_ERROR = 'TEAM_ERROR';

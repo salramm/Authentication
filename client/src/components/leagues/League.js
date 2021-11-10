@@ -4,18 +4,28 @@ import { getCurrentLeague } from '../../actions/league'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { getCurrentProfile } from '../../actions/profile'
+import Spinner from '../layout/Spinner'
 
-const League = ({getCurrentLeague, league: { league }}) => {
+const League = ({getCurrentLeague, profile: { profile, loading }, league: { league }}) => {
     useEffect(() => {
         getCurrentProfile();
         getCurrentLeague();
     }, [] );
 
     return (
-    <Fragment>
-        <h1 className="large text-primary"> Howdy this is home page {league.league} </h1>
-
-        <p> this team has been </p>
+        loading && profile === null ? <Spinner /> : <Fragment>
+        <h1 className="large text-primary">
+            League
+        </h1>
+        <p className="lead">
+            
+        </p>
+        {profile == null ? (<Fragment> </Fragment>) : (<Fragment> 
+            <p> You have not yet setup a profile, please add some info</p>
+            <Link to='/create-profile' className="btn btn-primary my-1">
+                Create League
+            </Link>
+        </Fragment>) }
     </Fragment>
     )
 }
