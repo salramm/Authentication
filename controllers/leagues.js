@@ -31,14 +31,13 @@ exports.createLeague = asyncHandler( async (req, res, next) => {
 
 exports.getLeague = asyncHandler( async( req, res, next) => {
 
-    const league = await League.find({user: req.user.id})
+    const league = await League.findOne({user: req.user.id})
 
-    console.log(league[0])
 
     if (!league) {
         return next(
             new ErrorResponse(`League not found with id of  ${req.params.id}`, 404)); //Thsi will handle the rejection if the ID does not exist but is correctly formatted
     }
 
-    res.status(201).json(league[0])
+    res.status(201).json(league)
 })

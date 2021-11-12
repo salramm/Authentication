@@ -104,8 +104,11 @@ const TeamSchema = new mongoose.Schema({
         type: mongoose.Schema.ObjectId,
         ref: 'User',
         required: true
+    },
+    league: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'League',
     }
-    
 }, {
     toJSON: { virtuals: true},
     toObject: { virtuals: true}
@@ -123,6 +126,13 @@ TeamSchema.virtual('courses', {
     ref: 'Course',
     localField: '_id',
     foreignField: 'team',
+    justOne: false
+});
+
+TeamSchema.virtual('teams', {
+    ref: 'League',
+    localField: '_id',
+    foreignField: 'teams',
     justOne: false
 })
 

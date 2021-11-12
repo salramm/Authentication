@@ -18,8 +18,13 @@ const League = ({getCurrentLeague, profile: { profile, loading }, league: { leag
             League
         </h1>
         <p className="lead">
-            
+        Your league is awesome 
         </p>
+
+        <div style={{"color": "red", "background-color":"red, 0.5",  }}> 
+            <p>Hey Buddy</p>
+        </div> 
+
         {profile == null ? (<Fragment> </Fragment>) : (<Fragment> 
             <p> You have not yet setup a profile, please add some info</p>
             <Link to='/create-profile' className="btn btn-primary my-1">

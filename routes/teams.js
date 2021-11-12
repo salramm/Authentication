@@ -22,7 +22,7 @@ router
 router
     .route('/')
     .get(protect, getTeams)
-    .post(protect, authorize('comissioner'), createTeam);
+    .post(protect, createTeam);
 
 router
     .route('/:id')

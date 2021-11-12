@@ -23,6 +23,7 @@ const CreateLeague = ({createLeague, history}) => {
         createLeague(formData, history)
     }
 
+
     return (
         <Fragment>
             <h1 className="large text-primary"> Create Your League</h1>
