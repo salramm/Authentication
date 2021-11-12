@@ -10,6 +10,8 @@ import CreateProfile from './components/profile-form/CreateProfile';
 import CreateLeague from './components/league-form/CreateLeague';
 import EditProfile from './components/profile-form/EditProfile';
 import League from './components/leagues/League';
+import EditLeague from './components/league-form/EditLeague';
+import EditTeam from './components/team-form/EditTeam';
 // import Profiles from './components/profiles/Profiles';
 import PrivateRoute from './components/routing/PrivateRoute';
 import './App.css';
@@ -46,6 +48,8 @@ const App = () => {
                     <PrivateRoute exact path="/create-profile" component={CreateProfile} />
                     <PrivateRoute exact path="/edit-profile" component={EditProfile} />
                     <PrivateRoute exact path="/league" component={League} /> 
+                    <PrivateRoute exact path="/edit-team" component={EditTeam}  />
+                    <PrivateRoute exact path="/edit-league" component={EditLeague} />
                     <PrivateRoute exact path="/create-team" component={CreateTeam} />
                 </Switch>
             </section>

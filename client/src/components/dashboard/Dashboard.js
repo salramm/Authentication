@@ -7,12 +7,10 @@ import { getCurrentTeam } from '../../actions/team';
 import Spinner from '../layout/Spinner';
 import { Link, Redirect } from 'react-router-dom';
 import { DashboardActions } from './DashboardActions';
-import { LeagueItem } from '../league-form/LeagueItem'
-import League from './League'
 import headquarters from '../../img/Headquarters.svg'
 
 
-const Dashboard = ({ getCurrentProfile, getCurrentLeague, auth: { user }, profile: {profile, loading}, league: {league} }) => {
+const Dashboard = ({ getCurrentProfile, getCurrentLeague, getCurrentTeam, auth: { user }, profile: {profile, loading}, league: {league}, team: {team} }) => {
     useEffect(() => {
         getCurrentProfile();
     }, []);
@@ -20,6 +18,10 @@ const Dashboard = ({ getCurrentProfile, getCurrentLeague, auth: { user }, profil
     useEffect(() => {
         getCurrentLeague();
     }, []);
+
+    useEffect(() => {
+        getCurrentTeam();
+    }, []) 
 
     return loading && league === null ? <Spinner /> : <Fragment>
         <h1 className="large text-primary">
@@ -30,7 +32,7 @@ const Dashboard = ({ getCurrentProfile, getCurrentLeague, auth: { user }, profil
         </p>
         
         { league !== null ? (<Fragment>
-            <DashboardActions/> This is a home page of your {league.league}
+            <DashboardActions team = {team}/> This is a home page of your {league.league_name}
             </Fragment>) : (<Fragment>  has not
             <p> Let's setup your League</p>
             <Link to='/create-league' className="btn btn-primary my-1">
@@ -52,13 +54,15 @@ Dashboard.propTypes = {
     profile: PropTypes.object.isRequired,
     league: PropTypes.object.isRequired,
     getCurrentLeague: PropTypes.func.isRequired,
+    team: PropTypes.object.isRequired,
+    getCurrentTeam: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = state => ({
     auth: state.auth,
     profile: state.profile,
     league: state.league,
-    // team: state.team
+    team: state.team
 })
 
-export default connect(mapStateToProps, { getCurrentProfile, getCurrentLeague }) (Dashboard);
+export default connect(mapStateToProps, { getCurrentProfile, getCurrentLeague, getCurrentTeam }) (Dashboard);

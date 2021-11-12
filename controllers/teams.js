@@ -11,9 +11,9 @@ const path = require('path');
 // @route       GET /api/v1/teams
 // @access      Public
 exports.getTeams = asyncHandler(async (req, res, next) => {  //Wrapped this in async middleware to avoid writing like in comment section below
-        const teams = await Team.find({user: req.user.id})  // .populate('courses');
+        const teams = await Team.findOne({user: req.user.id})  // .populate('courses');
 
-        res.status(200).json(teams[0]);
+        res.status(200).json(teams);
     
         // res.status(200).json({success: true, count: teams.length, data: teams});
         

@@ -22,3 +22,4 @@ export const CLEAR_LEAGUE = 'CLEAR_LEAGUE';
 
 export const GET_TEAM = 'GET_TEAM';
 export const TEAM_ERROR = 'TEAM_ERROR';
+export const CLEAR_TEAM = 'CLEAR_TEAM';

@@ -1,4 +1,4 @@
-import { GET_TEAM, TEAM_ERROR } from "../actions/types";
+import { GET_TEAM, TEAM_ERROR, CLEAR_TEAM } from "../actions/types";
 
 const initialState = {
     team: null,
@@ -21,6 +21,12 @@ export default function(state = initialState, action) {
                 ...state,
                 error: payload,
                 loading: false
+            }
+        case CLEAR_TEAM:
+            return {
+                ...state,
+                league: null,
+                laoding: false
             }
 
         default:

@@ -1,16 +1,23 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { Link } from 'react-router-dom'
 
 
-export const DashboardActions = () => {
-    return (
-        <div class="dash-buttons">
-        <Link to="/edit-profile" class="btn btn-light"
-          ><i class="fas fa-user-circle text-primary"></i> Edit Profile</Link>
-        <Link to="/add-experience" class="btn btn-light"
-          ><i class="fab fa-black-tie text-primary"></i> Add Experience</Link>
-        <Link to="/add-education" class="btn btn-light"
-          ><i class="fas fa-graduation-cap text-primary"></i> Add Education</Link>
+export const DashboardActions = ({team}) => {
+    return ( <div class="dash-buttons">
+      { team !== null ? ( <Fragment>
+        <Link to="/invite-friends" class="btn btn-light">
+          <i class="fab fa-black-tie text-primary"></i> Invite Friends</Link>
+        <Link to="/team" class="btn btn-light">
+          <i class="fab fa-black-tie text-primary"></i> Team Home</Link>
+      </Fragment>) : ( <Fragment>
+        <Link to="/create-team" class="btn btn-light">
+          <i class="fas fa-user-circle text-primary"></i> Create Team</Link>
+        <Link to="/invite-friends" class="btn btn-light">
+          <i class="fab fa-black-tie text-primary"></i> Invite Friends</Link> 
+          </Fragment>
+      )}
+      <Link to="/league" class="btn btn-light">
+          <i class="fab fa-black-tie text-primary"></i> League Home</Link> 
       </div>
     )
 }
