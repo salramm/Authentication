@@ -70,6 +70,7 @@ export const login = (email, password) => async dispatch => {
 
     const body = JSON.stringify({ email, password});
 
+    console.log('hey the error is in the auth - actions')
     try {
         const res = await axios.post('api/v1/auth//login', body, config );
 
@@ -78,6 +79,7 @@ export const login = (email, password) => async dispatch => {
             payload: res.data
         });
 
+        console.log('hey error in auth - actions')
         dispatch(loadUser());
     } catch (err) {
         const errors = err.response.data.error.split(",");

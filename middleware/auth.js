@@ -10,6 +10,8 @@ exports.protect = asyncHandler( async (req, res, next) => {
     //  let token
 
    const token = req.header('x-auth-token'); // This was used for the UI
+
+   console.log(token)
     
    // This was used when it was JUST API without the UI
 

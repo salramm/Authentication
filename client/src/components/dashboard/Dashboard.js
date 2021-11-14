@@ -7,7 +7,7 @@ import { getCurrentTeam } from '../../actions/team';
 import Spinner from '../layout/Spinner';
 import { Link, Redirect } from 'react-router-dom';
 import { DashboardActions } from './DashboardActions';
-import headquarters from '../../img/Headquarters.svg'
+import { League } from '../leagues/League';
 
 
 const Dashboard = ({ getCurrentProfile, getCurrentLeague, getCurrentTeam, auth: { user }, profile: {profile, loading}, league: {league}, team: {team} }) => {
@@ -32,8 +32,8 @@ const Dashboard = ({ getCurrentProfile, getCurrentLeague, getCurrentTeam, auth: 
         </p>
         
         { league !== null ? (<Fragment>
-            <DashboardActions team = {team}/> This is a home page of your {league.league_name}
-            </Fragment>) : (<Fragment>  has not
+            <DashboardActions team = {team}/>
+            </Fragment>  ) : (<Fragment>  has not
             <p> Let's setup your League</p>
             <Link to='/create-league' className="btn btn-primary my-1">
                 Create League
@@ -42,10 +42,10 @@ const Dashboard = ({ getCurrentProfile, getCurrentLeague, getCurrentTeam, auth: 
                 Join League
             </Link>
         </Fragment>) }
-            <img src={headquarters} style={{ width: '400px', margin: 'auto', display: 'block'}} 
-        alt='Loading...' />
+
+        <League league = {league} /> 
     </Fragment>
-    
+   //<League league = {league} /> 
 }
 
 Dashboard.propTypes = {

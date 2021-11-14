@@ -22,7 +22,7 @@ export const getCurrentLeague = () => async (dispatch) => {
     } catch (err) {
         dispatch ({
             type: LEAGUE_ERROR,
-            payload: {msg: err.response.statusText, status: err.response.status}
+            payload: err
         })
         
     }

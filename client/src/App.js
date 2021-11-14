@@ -9,7 +9,7 @@ import Dashboard from './components/dashboard/Dashboard';
 import CreateProfile from './components/profile-form/CreateProfile';
 import CreateLeague from './components/league-form/CreateLeague';
 import EditProfile from './components/profile-form/EditProfile';
-import League from './components/leagues/League';
+import LeagueConnect from './components/leagues/LeagueConnect';
 import EditLeague from './components/league-form/EditLeague';
 import EditTeam from './components/team-form/EditTeam';
 // import Profiles from './components/profiles/Profiles';
@@ -47,7 +47,7 @@ const App = () => {
                     <PrivateRoute exact path="/create-league" component={CreateLeague} />
                     <PrivateRoute exact path="/create-profile" component={CreateProfile} />
                     <PrivateRoute exact path="/edit-profile" component={EditProfile} />
-                    <PrivateRoute exact path="/league" component={League} /> 
+                    <PrivateRoute exact path="/league-connect" component={LeagueConnect} /> 
                     <PrivateRoute exact path="/edit-team" component={EditTeam}  />
                     <PrivateRoute exact path="/edit-league" component={EditLeague} />
                     <PrivateRoute exact path="/create-team" component={CreateTeam} />

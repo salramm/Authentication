@@ -1,53 +1,38 @@
-import React, { Fragment, useEffect } from 'react'
-import PropTypes from 'prop-types'
-import { getCurrentLeague } from '../../actions/league'
-import { Link } from 'react-router-dom'
-import { connect } from 'react-redux'
-import { getCurrentProfile } from '../../actions/profile'
-import Spinner from '../layout/Spinner'
+import React, {Fragment} from 'react'
+import hero from '../../img/Basketball Player.svg'
+import headquarters from '../../img/Headquarters.svg'
+import { Link } from 'react-router-dom';
+import commissioner from '../../img/Comissioner.svg'
 
-const League = ({getCurrentLeague, profile: { profile, loading }, league: { league }}) => {
-    useEffect(() => {
-        getCurrentProfile();
-        getCurrentLeague();
-    }, [] );
 
+
+export const League = ({ league }) => {
     return (
-        loading && profile === null ? <Spinner /> : <Fragment>
-        <h1 className="large text-primary">
-            League
-        </h1>
-        <p className="lead">
-        Your league is awesome 
-        </p>
+            <Fragment> 
+            <h1 style={{justifyContent: 'center', display: 'flex', marginTop: '20px', marginBottom: '30px'}}> {league.league} </h1>
+                <div class="hero" style={{justifyContent: 'center', display: 'flex'}}>
+                    <img src={hero} style={{ width: '530px', margin: 'auto', display: 'block'}} alt='Loading...' />
+                </div>
 
-        <div style={{"color": "red", "background-color":"red, 0.5",  }}> 
-            <p>Hey Buddy</p>
-        </div> 
+                <div style={{width:'100%', textAlign:'center'}} >
+                    <div style="headquarters_split" style={{backgroundColor:'#f8f8f8', display: 'flex', justifyContent: 'space-between', paddingBottom:'20px'}}>
+                        <img src={headquarters} style={{width:'450px', marginLeft:'200px', marginTop:'50px'}} />
+                        <div style={{marginRight: '200px', marginTop: '150px', marginLeft:'100px'}}>
+                        <h1>Headquarters </h1>
+                        <p>Headquartered in {league.headquarters} {league.league} is the first of its kind
+                            virtual fantasy basketball league</p>
+                        </div>
+                    </div>
+                <div class="commissioner" style={{display: 'flex', justifyContent: 'space-between'}}>
+                <img src={commissioner} style={{width:'450px', marginLeft:'200px', marginTop:'50px'}} />
+                        <div style={{marginRight: '200px', marginTop: '150px', marginLeft:'100px'}}>
+                        <h1>Headquarters </h1>
+                        <p>Headquartered in {league.commissioner} {league.league} is the first of its kind
+                            virtual fantasy basketball league</p>
+                        </div>
+                </div>
 
-        {profile == null ? (<Fragment> </Fragment>) : (<Fragment> 
-            <p> You have not yet setup a profile, please add some info</p>
-            <Link to='/create-profile' className="btn btn-primary my-1">
-                Create League
-            </Link>
-        </Fragment>) }
-    </Fragment>
+                </div>
+            </Fragment>
     )
-}
-
-
-League.propTypes = {
-    getCurrentLeague: PropTypes.func.isRequired,
-    league: PropTypes.object.isRequired,
-    auth: PropTypes.object.isRequired,
-    getCurrentProfile: PropTypes.func.isRequired,
-    profile: PropTypes.object.isRequired,
-}
-
-const mapStateToProps = state => ({
-    auth: state.auth,
-    league: state.league,
-    profile: state.profile
-})
-
-export default connect(mapStateToProps, { getCurrentProfile, getCurrentLeague})(League)
+};

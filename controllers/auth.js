@@ -29,6 +29,7 @@ exports.register = asyncHandler(async (req,res, next) => {
 exports.login = asyncHandler(async(req, res, next) => {
     const {email, password} = req.body;
 
+    console.log('hey error in auth - controllers')
     //Validation
     //Validate email & password
     if (!email || !password) {
@@ -59,6 +60,8 @@ exports.login = asyncHandler(async(req, res, next) => {
 
 exports.getMe = asyncHandler(async(req, res, next) => {
     const user = await User.findById(req.user.id).select('-password');
+
+    console.log(user)
 
     res.status(200).json(user)    // old stuff success: true, data: 
 });
@@ -145,7 +148,7 @@ const sendTokenResponse = (user, statusCode, res) => {
 
 
     const options = {
-        expires: new Date(Date.now() + process.env.JWT_COOKIE_EXPIRE * 24 * 60 * 60 * 1000),
+        // expires: new Date(Date.now() + process.env.JWT_COOKIE_EXPIRE * 24 * 60 * 60 * 1000),
         httpOnly: true
     };
 
