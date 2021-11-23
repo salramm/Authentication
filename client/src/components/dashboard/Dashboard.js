@@ -43,7 +43,7 @@ const Dashboard = ({ getCurrentProfile, getCurrentLeague, getCurrentTeam, auth: 
             </Link>
         </Fragment>) }
 
-        <League league = {league} /> 
+        
     </Fragment>
    //<League league = {league} /> 
 }
